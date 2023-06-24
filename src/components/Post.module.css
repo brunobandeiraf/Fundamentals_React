@@ -91,11 +91,17 @@
     margin-top: 1rem;
   }
   
+  /*
+    Para esconder os itens do footer
+  */
   .commentForm footer {
     visibility: hidden;
     max-height: 0;
   }
-  
+  /*
+    Quando usuário clicar no textarea, aparece o footer 
+    com o botão para publicar
+  */
   .commentForm:focus-within footer {
     visibility: visible;
     max-height: none;
