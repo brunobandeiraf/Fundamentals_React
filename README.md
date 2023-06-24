@@ -8,3 +8,7 @@ npm i
 
 ## Execute Project
 npm run dev
+
+# Biblioteca de Itens - phosphor
+npm i phosphor-react
+https://phosphoricons.com/
