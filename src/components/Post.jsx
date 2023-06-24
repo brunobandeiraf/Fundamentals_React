@@ -18,9 +18,25 @@ export function Post() {
       <div className={styles.content}>
         <p>Fala galeraa 👋</p>
         <p>Conteúdo do Post que foi escrito sem sentido algum, apenas para ter alguma coisa aqui. 🚀</p>
-        <p>👉<a href="">jane.design/doctorcare</a></p>
-        <p><a href="">#novoprojeto #react #fogueteNaoTemRe</a></p>
+        <p><a href="">jane.design/doctorcare</a></p>
+        <p>
+          <a href="">#novoprojeto</a>{' '}
+          <a href="">#react</a>{' '}
+          <a href="">#fogueteNaoTemRe</a>
+        </p>
       </div>
+
+      <form className={styles.commentForm}>
+        <strong>Deixe seu feedback</strong>
+
+        <textarea
+          placeholder="Deixe um comentário"
+        />
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
+      </form>
     </article>
   )
 }
