@@ -82,7 +82,7 @@
     width: 100%;
     background: var(--gray-900);
     border: 0;
-    resize: none;
+    resize: none; /*não redimenciona*/
     height: 6rem;
     padding: 1rem;
     border-radius: 0.25rem;
