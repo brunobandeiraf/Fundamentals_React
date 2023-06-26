@@ -47,8 +47,16 @@ export function Post({ author, publishedAt, content }) {
     addSuffix: true
   });
 
-  function deleteComment(comment) {
-    console.log(`Deletar comentário ${comment}`)
+  function deleteComment(commentToDelete) {
+    // Imutabilidade - as variáveis não sofrem mutação, 
+    // nós criamos um novo valor (espaço de memória)
+    const commentsWithoutDeletedOne 
+        = comments.filter(comment => {
+          return comment !== commentToDelete;
+          // filter = gera um nova lista, sem o item deletado
+    })
+    // React não alterado resultado, mas gera um novo resultado e substitui
+    setComments(commentsWithoutDeletedOne);
   }
 
   return (
