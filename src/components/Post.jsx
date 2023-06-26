@@ -17,6 +17,7 @@ export function Post({ author, publishedAt, content }) {
   {/*
     useState para capturar o valor do campo do comentário
     useState('') - começa com um valor vazio
+    Armazena tudo que é comentado pelo usuário em tempo real
   */}
   const [newCommentText, setNewCommentText] = useState('');
 
@@ -35,7 +36,14 @@ export function Post({ author, publishedAt, content }) {
     e pega o valor e insere no array, por meio do useState
   */}
   function handleNewCommentChange() {
+    // setCustomValidity - não possibilita publicar com campo vazio
+    event.target.setCustomValidity('');
+    // 
     setNewCommentText(event.target.value);
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
@@ -59,6 +67,8 @@ export function Post({ author, publishedAt, content }) {
     setComments(commentsWithoutDeletedOne);
   }
 
+  const isNewCommentEmpty = newCommentText.length === 0;
+
   return (
     <article className={styles.post}>
       <header>
@@ -69,7 +79,6 @@ export function Post({ author, publishedAt, content }) {
             <span>{author.role}</span>
           </div>
         </div>
-
         <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
           {publishedDateRelativeToNow}
         </time>
@@ -100,10 +109,16 @@ export function Post({ author, publishedAt, content }) {
           placeholder="Deixe um comentário"
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}/*Identifica quando o submit está inválido*/
+          required
         />
-
+        {/* 
+          disabled={newCommentText.length == 0} já desabilita o botão
+        */}
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
