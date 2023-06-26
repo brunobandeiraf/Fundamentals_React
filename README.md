@@ -12,3 +12,6 @@ npm run dev
 # Biblioteca de Itens - phosphor
 npm i phosphor-react
 https://phosphoricons.com/
+
+# Biblioteca de Datas
+npm i date-fns

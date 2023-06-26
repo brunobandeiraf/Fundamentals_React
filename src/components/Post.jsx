@@ -1,31 +1,43 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import styles from './Post.module.css';
 import { Comment } from './Comment';
 import { Avatar } from './Avatar';
 
-export function Post(props) {
+export function Post({ author, publishedAt, content }) {
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true
+  });
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/brunobandeiraf.png" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Bruno Fernandes</strong>
-            <span>Education</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="24 de Junho às 11:35h" dateTime="2023-06-23 11:35:00">Publicado há 1h</time>
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+          {publishedDateRelativeToNow}
+        </time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>Conteúdo do Post que foi escrito sem sentido algum, apenas para ter alguma coisa aqui. 🚀</p>
-        <p><a href="">jane.design/doctorcare</a></p>
-        <p>
-          <a href="">#novoprojeto</a>{' '}
-          <a href="">#react</a>{' '}
-          <a href="">#fogueteNaoTemRe</a>
-        </p>
+        {content.map(item => {
+          if (item.type === 'paragraph') {
+            return <p>{item.content}</p>;
+          } else if (item.type === 'link') {
+            return <p><a href="#">{item.content}</a></p>
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}>
